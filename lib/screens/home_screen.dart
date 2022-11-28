@@ -3,68 +3,15 @@ import 'package:provider/provider.dart' as provider;
 
 import '../constants.dart';
 import '../providers/my_provider.dart';
+import '../widgets/tile.dart';
+import '../widgets/bottom_button.dart';
+import '../widgets/bottom_sheet_design.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
-  Widget tile(
-      String titleText, String shortDescriptionText, VoidCallback function) {
-    return GestureDetector(
-      onTap: () {},
-      child: Container(
-        height: 75,
-        width: double.infinity,
-        padding: const EdgeInsets.symmetric(horizontal: 15),
-        color: kPrimaryColor,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Expanded(
-              //Expanded is here because of the TextOverflow.ellipsis
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    titleText,
-                    style: kTitleTextStyle,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  Text(
-                    shortDescriptionText,
-                    style: kShortDescriptionTextStyle,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ],
-              ),
-            ),
-            trashcanButton(function),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget trashcanButton(VoidCallback onPressFunction) {
-    return GestureDetector(
-      onTap: onPressFunction,
-      child: Container(
-        padding: const EdgeInsets.all(10),
-        decoration: BoxDecoration(
-          color: kTertiaryColor,
-          borderRadius: BorderRadius.circular(10),
-        ),
-        child: const Icon(
-          Icons.delete,
-          color: Colors.white,
-          size: 30,
-        ),
-      ),
-    );
-  }
-
-  Widget tileWithDivider(
-      String titleText, String shortDescriptionText, VoidCallback function) {
+  Widget tileWithDivider(String titleText, String shortDescriptionText,
+      VoidCallback deleteTileFunction) {
     return Column(
       children: [
         const Divider(
@@ -74,28 +21,11 @@ class HomeScreen extends StatelessWidget {
           indent: 15,
           endIndent: 15,
         ),
-        tile(titleText, shortDescriptionText, function),
+        Tile(
+            titleText: titleText,
+            shortDescriptionText: shortDescriptionText,
+            deleteTileFunction: deleteTileFunction),
       ],
-    );
-  }
-
-  Widget bottomButton(VoidCallback onPressFunction) {
-    return GestureDetector(
-      onTap: onPressFunction,
-      child: Container(
-        height: 50,
-        width: double.infinity,
-        margin: const EdgeInsets.all(15),
-        alignment: Alignment.center,
-        decoration: BoxDecoration(
-          color: kSecondaryColor,
-          borderRadius: BorderRadius.circular(10),
-        ),
-        child: const Text(
-          'Add New',
-          style: kBottomButtonTextStyle,
-        ),
-      ),
     );
   }
 
@@ -110,27 +40,32 @@ class HomeScreen extends StatelessWidget {
               child: provider.Consumer<MyProvider>(
                 builder: (context, myProvider, child) => ListView.builder(
                   itemBuilder: (context, index) => (index == 0)
-                      ? tile(
-                          myProvider.getTileTitle(index),
-                          myProvider.getTileShortDescription(index),
-                          () {
-                            myProvider.deleteTile(index);
-                          },
+                      ? Tile(
+                          titleText: myProvider.getTileTitle(index),
+                          shortDescriptionText:
+                              myProvider.getTileShortDescription(index),
+                          deleteTileFunction: () =>
+                              myProvider.deleteTile(index),
                         )
                       : tileWithDivider(
                           myProvider.getTileTitle(index),
                           myProvider.getTileShortDescription(index),
-                          () {
-                            myProvider.deleteTile(index);
-                          },
+                          () => myProvider.deleteTile(index),
                         ),
-                  itemCount: myProvider.getLength,
+                  itemCount: myProvider.getTilesLength,
                 ),
               ),
             ),
-            bottomButton(
-                provider.Provider.of<MyProvider>(context, listen: false)
-                    .addTile),
+            BottomButton(
+              onTapFunction: () => showModalBottomSheet(
+                backgroundColor: kPrimaryColor,
+                isScrollControlled: true,
+                context: context,
+                builder: (context) => const BottomSheetDesign(),
+              ),
+            ),
+            /* provider.Provider.of<MyProvider>(context, listen: false)
+                        .addTile), */
           ],
         ),
       ),

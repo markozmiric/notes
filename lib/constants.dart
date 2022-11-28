@@ -17,8 +17,18 @@ const TextStyle kShortDescriptionTextStyle = TextStyle(
   fontSize: 15,
 );
 
-const TextStyle kBottomButtonTextStyle = TextStyle(
+const TextStyle kButtonTextStyle = TextStyle(
   color: kPrimaryColor,
   fontSize: 20,
   fontWeight: FontWeight.bold,
+);
+
+const TextStyle kBottomSheetTextStyle = TextStyle(
+  color: Colors.white,
+  fontSize: 20,
+);
+
+const TextStyle kBottomSheetLabelTextStyle = TextStyle(
+  color: kSecondaryColor,
+  fontSize: 15,
 );
