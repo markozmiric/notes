@@ -6,7 +6,7 @@ class MyProvider extends ChangeNotifier {
   final List<TileModel> _tiles = [
     TileModel(
       title: 'animated container 1111111111111111',
-      shortDescription: 'widget animation 11111111111111111',
+      shortDescription: 'widget animation 11111111111111111111111111111111',
       description:
           'i saw it on youtube, it animets container to change in size',
     ),
@@ -21,14 +21,16 @@ class MyProvider extends ChangeNotifier {
   String getTileTitle(int index) => _tiles[index].title;
   String getTileShortDescription(int index) => _tiles[index].shortDescription;
   String getTileDescription(int index) => _tiles[index].description;
-  int get getLength => _tiles.length;
+  int get getTilesLength => _tiles.length;
 
-  void addTile() {
+  void addTile(
+      {required String titleText,
+      required String shortDescriptionText,
+      required String descriptionText}) {
     TileModel newTile = TileModel(
-      title: 'new',
-      shortDescription: 'new',
-      description: 'new',
-    );
+        title: titleText,
+        shortDescription: shortDescriptionText,
+        description: descriptionText);
 
     _tiles.add(newTile);
     notifyListeners();
