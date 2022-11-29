@@ -23,12 +23,14 @@ class MyProvider extends ChangeNotifier {
   String getTileDescription(int index) => _tiles[index].description;
   int get getTilesLength => _tiles.length;
 
-  void addTile() {
+  void addTile(
+      {required String titleText,
+      required String shortDescriptionText,
+      required String descriptionText}) {
     TileModel newTile = TileModel(
-      title: 'new',
-      shortDescription: 'new',
-      description: 'new',
-    );
+        title: titleText,
+        shortDescription: shortDescriptionText,
+        description: descriptionText);
 
     _tiles.add(newTile);
     notifyListeners();

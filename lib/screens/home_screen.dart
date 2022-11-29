@@ -64,8 +64,6 @@ class HomeScreen extends StatelessWidget {
                 builder: (context) => const BottomSheetDesign(),
               ),
             ),
-            /* provider.Provider.of<MyProvider>(context, listen: false)
-                        .addTile), */
           ],
         ),
       ),
