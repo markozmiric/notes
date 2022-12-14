@@ -3,29 +3,20 @@ import 'package:provider/provider.dart' as provider;
 
 import '../constants.dart';
 import '../providers/my_provider.dart';
-import '../widgets/tile.dart';
+import '../widgets/my_animated_container.dart';
 import '../widgets/bottom_button.dart';
 import '../widgets/bottom_sheet_design.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
-  Widget tileWithDivider(String titleText, String shortDescriptionText,
-      VoidCallback deleteTileFunction) {
-    return Column(
-      children: [
-        const Divider(
-          height: 14,
-          thickness: 3,
-          color: kTertiaryColor,
-          indent: 15,
-          endIndent: 15,
-        ),
-        Tile(
-            titleText: titleText,
-            shortDescriptionText: shortDescriptionText,
-            deleteTileFunction: deleteTileFunction),
-      ],
+  Widget myDivider() {
+    return const Divider(
+      height: 14,
+      thickness: 3,
+      color: kTertiaryColor,
+      indent: 15,
+      endIndent: 15,
     );
   }
 
@@ -38,20 +29,15 @@ class HomeScreen extends StatelessWidget {
           children: [
             Expanded(
               child: provider.Consumer<MyProvider>(
-                builder: (context, myProvider, child) => ListView.builder(
-                  itemBuilder: (context, index) => (index == 0)
-                      ? Tile(
-                          titleText: myProvider.getTileTitle(index),
-                          shortDescriptionText:
-                              myProvider.getTileShortDescription(index),
-                          deleteTileFunction: () =>
-                              myProvider.deleteTile(index),
-                        )
-                      : tileWithDivider(
-                          myProvider.getTileTitle(index),
-                          myProvider.getTileShortDescription(index),
-                          () => myProvider.deleteTile(index),
-                        ),
+                builder: (context, myProvider, child) => ListView.separated(
+                  itemBuilder: (context, index) => MyAnimatedContainer(
+                    titleText: myProvider.getTileTitle(index),
+                    shortDescriptionText:
+                        myProvider.getTileShortDescription(index),
+                    descriptionText: myProvider.getTileDescription(index),
+                    deleteTileFunction: () => myProvider.deleteTile(index),
+                  ),
+                  separatorBuilder: (context, index) => myDivider(),
                   itemCount: myProvider.getTilesLength,
                 ),
               ),

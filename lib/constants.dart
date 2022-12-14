@@ -17,6 +17,11 @@ const TextStyle kShortDescriptionTextStyle = TextStyle(
   fontSize: 15,
 );
 
+const TextStyle kDescriptionTextStyle = TextStyle(
+  color: Colors.white,
+  fontSize: 25,
+);
+
 const TextStyle kButtonTextStyle = TextStyle(
   color: kPrimaryColor,
   fontSize: 20,

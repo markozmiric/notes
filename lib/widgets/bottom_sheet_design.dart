@@ -71,7 +71,7 @@ class _BottomSheetDesignState extends State<BottomSheetDesign> {
 
   @override
   void dispose() {
-    // Clean up the controller when the widget is disposed.
+    // Clean up the controller
     titleTextController.dispose();
     shortDescriptionTextController.dispose();
     descriptionTextController.dispose();
@@ -82,7 +82,7 @@ class _BottomSheetDesignState extends State<BottomSheetDesign> {
   Widget build(BuildContext context) {
     return Padding(
       padding:
-          //so when keyboard appers it pushes the sheet up
+          //so when keyboard appears it pushes the sheet up
           EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
       child: Padding(
         padding: const EdgeInsets.all(15),
@@ -121,7 +121,7 @@ class _BottomSheetDesignState extends State<BottomSheetDesign> {
                   onTapFunction: () => Navigator.pop(context),
                 ),
               ],
-            )
+            ),
           ],
         ),
       ),
