@@ -7,9 +7,14 @@ import '../widgets/my_animated_container.dart';
 import '../widgets/bottom_button.dart';
 import '../widgets/bottom_sheet_design.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
   Widget myDivider() {
     return const Divider(
       height: 14,
@@ -18,6 +23,13 @@ class HomeScreen extends StatelessWidget {
       indent: 15,
       endIndent: 15,
     );
+  }
+
+  @override
+  void initState() {
+    provider.Provider.of<MyProvider>(context, listen: false)
+        .getDataFromDatabase();
+    super.initState();
   }
 
   @override
