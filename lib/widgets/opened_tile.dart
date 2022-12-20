@@ -10,13 +10,8 @@ class OpenedTile extends StatelessWidget {
 
   Widget titleContainer({required String titleText}) {
     return Container(
-      padding: const EdgeInsets.symmetric(
-        vertical: 10,
-        horizontal: 15,
-      ),
       width: double.infinity,
       decoration: BoxDecoration(
-        color: kTertiaryColor,
         borderRadius: BorderRadius.circular(10),
       ),
       child: SingleChildScrollView(
@@ -32,10 +27,7 @@ class OpenedTile extends StatelessWidget {
   Widget descriptionContainer({required String descriptionText}) {
     return Expanded(
       child: Container(
-        padding: const EdgeInsets.symmetric(
-          vertical: 10,
-          horizontal: 15,
-        ),
+        padding: const EdgeInsets.all(10),
         width: double.infinity,
         decoration: BoxDecoration(
           color: kTertiaryColor,
